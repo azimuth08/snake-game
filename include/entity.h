@@ -22,6 +22,7 @@ class entity
         std::vector<Position> position;
 
         entity(struct Position& );
+        ~entity();
         void setColor(struct Color& c);
 
 };

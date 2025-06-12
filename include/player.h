@@ -12,7 +12,7 @@ class player : public entity
 
     public:
         player(struct Position initPos, struct Color sColor);
-
+        ~player();
         void addLength();
         int getLength();
         

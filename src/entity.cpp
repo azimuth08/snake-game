@@ -9,6 +9,11 @@ entity::entity(struct Position& position)
     this->color = defColor;
 }
 
+entity::~entity()
+{
+    
+}
+
 void entity::setColor(struct Color& c)
 {
     this->color.R = c.R;
