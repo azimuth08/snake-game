@@ -2,16 +2,21 @@
 #define PLAYER_H_
 
 #include <vector>
+#include <entity.h>
 
-struct Position
-{
-    int x, y;
-};
 
-class player
+class player : public entity
 {
+    private:
+        int length;
+
     public:
-        std::vector<Position> player;
+        player(struct Position initPos, struct Color sColor);
+
+        void addLength();
+        int getLength();
+        
+
         
 };
 
