@@ -1,7 +1,9 @@
 #include "../include/game.h"
 #include "../include/main.h"
 #include "../include/init_sdl.h"
-
+#include "../include/Apple.h"
+#include "../include/Player.h"
+#include "../include/load_media.h"
 
 bool game_new(struct Game* g)
 {
@@ -9,6 +11,8 @@ bool game_new(struct Game* g)
     {
         return false;
     }
+
+    printf("Initialized length of snake : %d\n", g->snake.getLength());
 
     g->is_running = true;
 
@@ -27,6 +31,12 @@ void close(struct Game* g)
     {
         SDL_DestroyRenderer(g->renderer);
         g->renderer = NULL;
+    }
+
+    if( g->spriteSheet.getTexture())
+    {
+        g->spriteSheet.free();
+    
     }
 
     SDL_Quit();
@@ -48,7 +58,21 @@ void game_events(struct Game* g)
                     case SDL_SCANCODE_ESCAPE :
                         g->is_running = false;
                         break;
-                    
+                    case SDL_SCANCODE_W :
+                        g->spriteSheet.render(g, WINDOW_WIDTH / 2.0 , WINDOW_HEIGHT / 2.0, &g->spriteClips[SNAKE_SPRITE_HEAD_UP]);
+                        break;
+
+                    case SDL_SCANCODE_A :
+                        g->spriteSheet.render(g, WINDOW_WIDTH / 2.0 , WINDOW_HEIGHT / 2.0, &g->spriteClips[SNAKE_SPRITE_HEAD_LEFT]);
+                        break;
+
+                    case SDL_SCANCODE_S :
+                        g->spriteSheet.render(g, WINDOW_WIDTH / 2.0 , WINDOW_HEIGHT / 2.0, &g->spriteClips[SNAKE_SPRITE_HEAD_DOWN]);
+                        break;
+
+                    case SDL_SCANCODE_D :
+                        g->spriteSheet.render(g, WINDOW_WIDTH / 2.0 , WINDOW_HEIGHT / 2.0, &g->spriteClips[SNAKE_SPRITE_HEAD_RIGHT]);
+                        break;
                     default :
                         break;
 
@@ -64,12 +88,22 @@ void game_events(struct Game* g)
 void game_draw(struct Game* g)
 {
     SDL_RenderClear(g->renderer);
+    
+
+    //g->spriteSheet.render(g, WINDOW_WIDTH / 2.0 , WINDOW_HEIGHT / 2.0, &g->spriteClips[SNAKE_SPRITE_HEAD_UP]);
+
     SDL_RenderPresent(g->renderer);
 }
 
 void run_game(struct Game* g)
 {
-    SDL_SetRenderDrawColor(g->renderer,128, 250, 100, 255);
+    SDL_SetRenderDrawColor(g->renderer,128, 110, 255, 255);
+
+    if( !load_media(g))
+    {
+        printf (" Could not load Media \n");
+    }
+    
     while ( g->is_running )
     {
         game_events(g);

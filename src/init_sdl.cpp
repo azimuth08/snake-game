@@ -22,7 +22,9 @@ bool init_SDL(struct Game* g)
         printf("Could not initialize SDL Renderer. SDL ERROR : %s\n", SDL_GetError());
         return false;
     }
-        
+    
+
+
 
     return true;
 }

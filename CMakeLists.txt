@@ -12,10 +12,10 @@ target_compile_definitions(${PROJECT_NAME}  PUBLIC RESOURCES_PATH="${CMAKE_CURRE
 
 target_include_directories(${PROJECT_NAME}  PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/")
 target_link_libraries(${PROJECT_NAME}  PRIVATE SDL3::SDL3)
-target_link_libraries(${PROJECT_NAME}  PRIVATE ${sdl3_image_target_name})
+target_link_libraries(${PROJECT_NAME}  PRIVATE SDL3_image::SDL3_image)
 
 if(WIN32)
     target_link_libraries(
-        main PRIVATE SDL2main
+        ${PROJECT_NAME} PRIVATE SDL2main
     )
 endif()

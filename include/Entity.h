@@ -3,6 +3,9 @@
 
 #include <cstdint>
 #include <vector>
+#include <main.h>
+
+
 struct Position
 {
     int x, y;
@@ -14,17 +17,22 @@ struct Color
 
 };
 
+struct TextureSizing
+{
+    SDL_Rect textureSize = {32,32};
+    Position center = { textureSize.w / 2, textureSize.h / 2 };
+};
+
 class Entity 
 {
     public:
-
         struct Color color;
-        std::vector<Position> position;
+        Position position;
 
-        Entity(struct Position& );
+        Entity() :  color( {255, 255, 255, 255} ) , position( {0,0} ){};
+        Entity(struct Position& p) : position( {0,0} ) , color( {255,255,255,255} ){};
         ~Entity();
         void setColor(struct Color& c);
-
 };
 
 #endif
